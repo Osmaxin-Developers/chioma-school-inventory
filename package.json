@@ -69,6 +69,7 @@
     "@inertiajs/react": "^1.2.0",
     "@vinejs/vine": "^2.1.0",
     "edge.js": "^6.0.2",
+    "lucide-react": "^0.396.0",
     "luxon": "^3.4.4",
     "mysql2": "^3.10.1",
     "react": "^18.3.1",
