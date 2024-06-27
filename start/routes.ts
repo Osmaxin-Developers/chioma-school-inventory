@@ -9,3 +9,8 @@
 
 import router from '@adonisjs/core/services/router'
 router.on('/').renderInertia('home', { version: 6 })
+router.on('/dashboard').renderInertia('dashboard/index', { version: 6 })
+router.on('/dashboard/inventories').renderInertia('dashboard/inventories/index', { version: 6 })
+router
+  .on('/dashboard/inventories/add')
+  .renderInertia('dashboard/inventories/add/index', { version: 6 })

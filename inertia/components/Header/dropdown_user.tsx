@@ -48,7 +48,7 @@ const DropdownUser = () => {
               objectFit: 'cover',
             }}
             className="rounded-full"
-            src={''}
+            src={'../../../resources/images/profile-avatar.png'}
           />
         </span>
 

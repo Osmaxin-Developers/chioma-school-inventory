@@ -8,6 +8,7 @@ import {
   GiftIcon,
   LayoutDashboardIcon,
   ListIcon,
+  ListMinusIcon,
   MenuIcon,
   SubscriptIcon,
   Users,
@@ -71,7 +72,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <Link href="/dashboard">
-          <h1 className="text-white font-bold text-2xl">Moonlight</h1>
+          <h1 className="text-white font-bold text-2xl">Inventory</h1>
         </Link>
 
         <button
@@ -115,18 +116,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 }}
               </SidebarLinkGroup>
 
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/users'}>
+              <SidebarLinkGroup activeCondition={pathname === '/dashboard/inventories'}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <Link
-                        href="/dashboard/users"
+                        href="/dashboard/inventories"
                         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/users' && 'bg-graydark dark:bg-meta-4'
+                          pathname === '/dashboard/inventories' && 'bg-graydark dark:bg-meta-4'
                         }`}
                       >
-                        <Users />
-                        Users
+                        <ListMinusIcon />
+                        Inventories
                       </Link>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
@@ -136,138 +137,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               {/* <!-- Menu Item Dashboard --> */}
 
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/subscriptions'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/subscriptions"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/subscriptions' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <SubscriptIcon />
-                        Subcriptions
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-
               {/* <!-- Menu Item Calendar --> */}
 
-              {/* <!-- Menu Item Dashboard --> */}
-
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/payments'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/payments"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/payments' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <DollarSign />
-                        Payments
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-
-              {/* <!-- Menu Item Calendar --> */}
-
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/gifts'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/gifts"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/gifts' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <GiftIcon />
-                        Gifts setup
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-
               {/* <!-- Menu Item Profile --> */}
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/conversion'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/conversion"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/conversion' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <CoinsIcon />
-                        Conversion rate
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-              {/*  */}
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/countries'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/countries"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/countries' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <ListIcon />
-                        Countries
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-              {/*  */}
-              <SidebarLinkGroup activeCondition={pathname === '/dashboard/reports'}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="/dashboard/reports"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          pathname === '/dashboard/reports' && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                      >
-                        <AlertOctagonIcon />
-                        User Reports
-                      </Link>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  )
-                }}
-              </SidebarLinkGroup>
-
-              {/* <!-- Menu Item Profile --> */}
-
-              {/* <!-- Menu Item Forms --> */}
-
-              {/* <!-- Menu Item Tables --> */}
-
-              {/* <!-- Menu Item Tables --> */}
-
-              {/* <!-- Menu Item Settings --> */}
-
-              {/* <!-- Menu Item Settings --> */}
             </ul>
           </div>
 

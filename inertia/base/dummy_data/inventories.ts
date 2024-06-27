@@ -1,0 +1,42 @@
+export const inventories = [
+  {
+    id: 1,
+    name: 'some name',
+    price: 432,
+    quantity: 43,
+    status: 'in stock',
+    image: '../../../resources/images/profile-avatar.png',
+  },
+  {
+    id: 2,
+    name: 'some name',
+    price: 432,
+    quantity: 43,
+    status: 'in stock',
+    image: '../../../resources/images/profile-avatar.png',
+  },
+  {
+    id: 3,
+    name: 'some name',
+    price: 432,
+    quantity: 43,
+    status: 'in stock',
+    image: '../../../resources/images/profile-avatar.png',
+  },
+  {
+    id: 4,
+    name: 'some name',
+    price: 432,
+    quantity: 43,
+    status: 'in stock',
+    image: '../../../resources/images/profile-avatar.png',
+  },
+  {
+    id: 5,
+    name: 'some name',
+    price: 432,
+    quantity: 43,
+    status: 'in stock',
+    image: '../../../resources/images/profile-avatar.png',
+  },
+]
