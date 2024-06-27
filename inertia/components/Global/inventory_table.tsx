@@ -40,7 +40,14 @@ export const InventoryTable = () => {
             {/* <!-- table row item --> */}
             {inventories.map((inventory) => (
               <div className="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
-                <div className="col-span-3">
+                <div className="col-span-3 flex items-start space-x-3">
+                  <div className="h-9 hidden sm:block w-full max-w-9 relative flex-shrink-0 rounded-xl overflow-hidden">
+                    <img
+                      src={'../../../resources/images/product-image.jpg'}
+                      alt="inventory_image"
+                      className="object-cover object-center"
+                    />
+                  </div>
                   <p className="text-[#637381] dark:text-bodydark">{inventory.name}</p>
                 </div>
 
