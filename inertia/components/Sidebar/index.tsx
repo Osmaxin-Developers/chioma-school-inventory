@@ -10,6 +10,7 @@ import {
   ListIcon,
   ListMinusIcon,
   MenuIcon,
+  PackagePlusIcon,
   SubscriptIcon,
   Users,
 } from 'lucide-react'
@@ -128,6 +129,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       >
                         <ListMinusIcon />
                         Inventories
+                      </Link>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  )
+                }}
+              </SidebarLinkGroup>
+
+              <SidebarLinkGroup activeCondition={pathname === '/dashboard/record-inventory-usage'}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        href="/dashboard/record-inventory-usage"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname === '/dashboard/record-inventory-usage' &&
+                          'bg-graydark dark:bg-meta-4'
+                        }`}
+                      >
+                        <PackagePlusIcon />
+                        Record usage
                       </Link>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
