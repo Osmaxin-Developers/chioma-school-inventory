@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react'
 import { ChevronDownIcon } from 'lucide-react'
 import { useState } from 'react'
 import { inventories } from '~/base/dummy_data/inventories'
@@ -80,9 +81,12 @@ export const InventoryTable = () => {
                       <button className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4">
                         Delete
                       </button>
-                      <button className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4">
+                      <Link
+                        href={`/dashboard/inventories/preview`}
+                        className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
+                      >
                         Details
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

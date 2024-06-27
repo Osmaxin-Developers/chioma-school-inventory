@@ -14,3 +14,6 @@ router.on('/dashboard/inventories').renderInertia('dashboard/inventories/index',
 router
   .on('/dashboard/inventories/add')
   .renderInertia('dashboard/inventories/add/index', { version: 6 })
+router
+  .on('/dashboard/inventories/preview')
+  .renderInertia('dashboard/inventories/preview/index', { version: 6 })
