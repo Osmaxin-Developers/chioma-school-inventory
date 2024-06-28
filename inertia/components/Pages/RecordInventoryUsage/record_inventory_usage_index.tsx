@@ -11,7 +11,7 @@ export const RecordInventoryUsageIndex = () => {
       </div> */}
 
       {/*  */}
-      <div className="h-[calc(100vh-14rem)] grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-7 md:gap-6 2xl:gap-7.5">
+      <div className="h-[calc(100vh-10rem)] grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-7 md:gap-6 2xl:gap-7.5">
         <LeftSection />
         <RightSection />
       </div>

@@ -1,4 +1,4 @@
-import { MinusCircleIcon, MinusIcon, PlusIcon } from 'lucide-react'
+import { MinusIcon, PlusIcon } from 'lucide-react'
 import { inventories } from '~/base/dummy_data/inventories'
 
 export const ItemsSection = () => {
@@ -19,6 +19,7 @@ export const ItemsSection = () => {
                   Price
                 </th>
                 <th className="px-4 py-4 font-medium text-black dark:text-white">Quantity</th>
+                <th className="px-4 py-4 font-medium text-black dark:text-white">Subtotal</th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +50,9 @@ export const ItemsSection = () => {
                         <PlusIcon />
                       </button>
                     </div>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p className="text-black dark:text-white font-medium">$0.00</p>
                   </td>
                 </tr>
               ))}
