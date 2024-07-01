@@ -1,6 +1,7 @@
+import type Inventory from '../../../../app/models/inventory'
 import { InventoryDetailsLeftSection } from './inventory_details_left_section'
 
-export const InventoryPreviewIndex = () => {
+export const InventoryPreviewIndex = ({ inventory }: { inventory: Inventory }) => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -20,14 +21,14 @@ export const InventoryPreviewIndex = () => {
           <div className="flex-1 flex flex-col gap-6 xl:flex-row py-4 xl:py-6 px-4 sm:px-6 xl:px-9">
             <div className="w-full xl:w-1/2 flex items-center justify-center border border-stroke rounded-lg overflow-hidden dark:border-strokedark">
               <img
-                src="../../../../resources/images/product-image.jpg"
+                src={inventory.image_url}
                 alt=""
                 className="object-contain max-w-[300px] max-h-[300px] rounded-lg"
               />
             </div>
             {/*  */}
             <div className="w-full xl:w-1/2">
-              <InventoryDetailsLeftSection />
+              <InventoryDetailsLeftSection inventory={inventory} />
             </div>
           </div>
         </div>
