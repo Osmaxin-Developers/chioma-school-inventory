@@ -8,9 +8,25 @@
 */
 
 import router from '@adonisjs/core/services/router'
-router.on('/').renderInertia('home', { version: 6 })
+import LoginController from '../app/modules/auth/login/login_controller.js'
+import InventoryController from '../app/modules/inventories/inventories_controller.js'
+import { middleware } from './kernel.js'
+
+router
+  .get('/', ({ view }) => {
+    return view.render('auth/login')
+  })
+  .use(middleware.guest())
+
+router.post('/login', [LoginController, 'login']).use(middleware.guest())
 router.on('/dashboard').renderInertia('dashboard/index', { version: 6 })
 router.on('/dashboard/inventories').renderInertia('dashboard/inventories/index', { version: 6 })
+
+router
+  .post('/inventories', [InventoryController, 'create'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
 router
   .on('/dashboard/inventories/add')
   .renderInertia('dashboard/inventories/add/index', { version: 6 })
