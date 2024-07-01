@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react'
 import { EyeIcon } from 'lucide-react'
 import TableSearchAndFilterComponent from '~/components/Global/table_search_and_filter_component'
 
@@ -58,9 +59,12 @@ export const UsagesTable = () => {
             </div>
 
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <button className="hover:bg-primary/20 rounded-full p-1 transition-all">
+              <Link
+                href="/dashboard/inventory-usages/usage-preview"
+                className="hover:bg-primary/20 rounded-full p-1 transition-all"
+              >
                 <EyeIcon />
-              </button>
+              </Link>
             </div>
           </div>
         ))}

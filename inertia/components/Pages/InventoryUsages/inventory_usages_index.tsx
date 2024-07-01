@@ -11,13 +11,13 @@ export const InventoryUsagesIndex = () => {
           <h2 className="text-title-md font-bold text-black dark:text-white">Inventory usages</h2>
         </div>
         <Link
-          href="/dashboard/inventories/add"
+          href="/dashboard/record-inventory-usage"
           className="inline-flex items-center justify-center gap-2.5 rounded-md bg-primary px-10 py-4 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
         >
           <span>
             <PlusSquareIcon />
           </span>
-          Record usage
+          Record new usage
         </Link>
       </div>
 
