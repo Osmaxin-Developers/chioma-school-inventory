@@ -1,5 +1,6 @@
 /// <reference path="../../adonisrc.ts" />
 /// <reference path="../../config/inertia.ts" />
+import { Toaster } from 'sonner'
 
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { createInertiaApp } from '@inertiajs/react'
@@ -20,6 +21,11 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />)
+    createRoot(el).render(
+      <>
+        <App {...props} />
+        <Toaster />
+      </>
+    )
   },
 })

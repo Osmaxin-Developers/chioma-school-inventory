@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Files from 'react-files'
 
 import { ImageIcon, PlusIcon, XCircleIcon } from 'lucide-react'
+import { cn } from '~/base/libs/twm'
 import FilePreviewModal from './file_preview_modal'
 import { useFileUpload } from './hooks/use_file_upload'
 import { File } from './ifile'
-import { cn } from '~/base/libs/twm'
 
 const FileUpload = ({
   multiple = false,
@@ -19,7 +19,7 @@ const FileUpload = ({
   name: string
   label: string
   multiple?: boolean
-  onChange?: (files: File[]) => any
+  onChange?: (files: File[] | File) => any
   previews?: string[]
   labelClassName?: string
   errorMessage?: string
