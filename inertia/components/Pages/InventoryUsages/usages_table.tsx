@@ -4,10 +4,12 @@ import TableSearchAndFilterComponent from '~/components/Global/table_search_and_
 export const UsagesTable = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 text-xl font-bold text-black dark:text-white">Details</h4>
-      <TableSearchAndFilterComponent onSearch={() => {}}>
-        <div className="flex space-x-4"></div>
-      </TableSearchAndFilterComponent>
+      <div className="gap-4 sm:flex items-center justify-between">
+        <h4 className="mb-6 text-xl font-bold text-black dark:text-white">Details</h4>
+        <TableSearchAndFilterComponent onSearch={() => {}}>
+          <></>
+        </TableSearchAndFilterComponent>
+      </div>
 
       <div className="flex flex-col">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
