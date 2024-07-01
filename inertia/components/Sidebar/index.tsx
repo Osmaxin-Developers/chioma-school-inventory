@@ -15,6 +15,7 @@ import {
   PackagePlusIcon,
   SubscriptIcon,
   Users,
+  Users2Icon,
 } from 'lucide-react'
 import SidebarLinkGroup from './sidebar_link_group'
 
@@ -170,6 +171,25 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       >
                         <ListChecksIcon />
                         Inventory usages
+                      </Link>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  )
+                }}
+              </SidebarLinkGroup>
+
+              <SidebarLinkGroup activeCondition={pathname === '/dashboard/users'}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        href="/dashboard/users"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname === '/dashboard/users' && 'bg-graydark dark:bg-meta-4'
+                        }`}
+                      >
+                        <Users2Icon />
+                        Users
                       </Link>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
