@@ -20,3 +20,6 @@ router
 router
   .on('/dashboard/record-inventory-usage')
   .renderInertia('dashboard/record-inventory-usage/index', { version: 6 })
+router
+  .on('/dashboard/inventory-usages')
+  .renderInertia('dashboard/inventory-usages/index', { version: 6 })
