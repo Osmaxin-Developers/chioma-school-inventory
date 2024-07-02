@@ -17,10 +17,22 @@ router
     return view.render('auth/login')
   })
   .use(middleware.guest())
+router
+  .get('/login', ({ view }) => {
+    return view.render('auth/login')
+  })
+  .use(middleware.guest())
 
 router.post('/login', [LoginController, 'login']).use(middleware.guest())
-router.on('/dashboard').renderInertia('dashboard/index', { version: 6 })
-router.on('/dashboard/inventories').renderInertia('dashboard/inventories/index', { version: 6 })
+router
+  .on('/dashboard')
+  .renderInertia('dashboard/index', { version: 6 })
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+router
+  .get('/dashboard/inventories', [InventoryController, 'findAll'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
 
 router
   .post('/inventories', [InventoryController, 'create'])
@@ -28,11 +40,21 @@ router
   .use(middleware.userRole({ roles: ['super-admin'] }))
 
 router
+  .patch('/inventories/:id', [InventoryController, 'update'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
+router
+  .delete('/inventories/:id', [InventoryController, 'remove'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
+router
   .on('/dashboard/inventories/add')
   .renderInertia('dashboard/inventories/add/index', { version: 6 })
-router
-  .on('/dashboard/inventories/preview')
-  .renderInertia('dashboard/inventories/preview/index', { version: 6 })
+
+router.get('/dashboard/inventories/:id', [InventoryController, 'findOne'])
+
 router
   .on('/dashboard/record-inventory-usage')
   .renderInertia('dashboard/record-inventory-usage/index', { version: 6 })
