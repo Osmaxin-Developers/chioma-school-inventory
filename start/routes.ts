@@ -62,7 +62,8 @@ router
 
 router.post('/usages', [UsageController, 'create'])
 router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
-router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
+// router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
+router.on('/dashboard/inventory-usages/usage-preview').renderInertia('dashboard/inventory-usages/usage-preview/index')
 
 router.on('/dashboard/users').renderInertia('dashboard/users/index', { version: 6 })
 router.on('/dashboard/users/create').renderInertia('dashboard/users/create/index', { version: 6 })
