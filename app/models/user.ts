@@ -1,10 +1,11 @@
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
-import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
-import type { ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Role from './role.js'
+import UserRole from './user_role.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email', 'id'],
@@ -34,4 +35,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
     pivotTable: 'user_roles',
   })
   declare roles: ManyToMany<typeof Role>
+
+  @hasMany(() => UserRole)
+  declare userRoles: HasMany<typeof UserRole>
 }
