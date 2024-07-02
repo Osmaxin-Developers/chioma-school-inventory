@@ -43,3 +43,4 @@ router
   .on('/dashboard/inventory-usages/usage-preview')
   .renderInertia('dashboard/inventory-usages/usage-preview/index', { version: 6 })
 router.on('/dashboard/users').renderInertia('dashboard/users/index', { version: 6 })
+router.on('/dashboard/users/create').renderInertia('dashboard/users/create/index', { version: 6 })
