@@ -1,8 +1,12 @@
 import { ChevronDownIcon } from 'lucide-react'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import TableSearchAndFilterComponent from '~/components/Global/table_search_and_filter_component'
 
-export const UsersTable = () => {
+export const UsersTable = ({
+  setIsUserDetailsModalOpen,
+}: {
+  setIsUserDetailsModalOpen: Dispatch<SetStateAction<boolean>>
+}) => {
   //
   const [isOpen, setIsOpen] = useState(false)
   const [isActiveId, setIsActiveId] = useState<number>()
@@ -33,7 +37,10 @@ export const UsersTable = () => {
         </div>
 
         {[...new Array(5)].map((item, index) => (
-          <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark md:grid-cols-4">
+          <div
+            key={index}
+            className="grid grid-cols-3 border-b border-stroke dark:border-strokedark md:grid-cols-4"
+          >
             <div className="flex items-center gap-3 p-2.5 xl:p-5">
               <p className="hidden font-medium text-black dark:text-white sm:block">Google</p>
             </div>
@@ -63,11 +70,15 @@ export const UsersTable = () => {
                   </button>
 
                   <div
-                    x-cloak
-                    x-show="isOpen"
                     className={`absolute right-0 top-full z-10 mt-1 w-36 border border-stroke dark:border-strokedark rounded-[5px] bg-white py-2.5 shadow-12 dark:bg-boxdark 
                         ${isOpen && isActiveId === index ? 'block' : 'hidden'}`}
                   >
+                    <button
+                      onClick={() => setIsUserDetailsModalOpen(true)}
+                      className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
+                    >
+                      Details
+                    </button>
                     <button className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4">
                       Change role
                     </button>

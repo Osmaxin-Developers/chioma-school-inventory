@@ -3,7 +3,6 @@ import { cn } from '~/base/libs/twm'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string
-  containerClassName?: string
   label?: string
   placeholder: string
   errorMessage?: string
