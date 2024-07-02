@@ -9,7 +9,7 @@ export const UserDetailsModal = ({
   setIsModalOpen: React.Dispatch<SetStateAction<boolean>>
 }) => {
   return (
-    <PopUpModal title={'User Details'} isOpen={true} onClose={() => setIsModalOpen(false)}>
+    <PopUpModal title={'User Details'} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
       <div className="min-h-[350px]">
         <div className="border-b border-stroke px-5 py-4 dark:border-strokedark sm:flex items-center justify-between gap-5">
           <h5 className="mb-1.5 font-bold text-black dark:text-white">User Name :</h5>

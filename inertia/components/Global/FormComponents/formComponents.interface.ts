@@ -32,6 +32,7 @@ export interface ISelectInput {
   value?: any;
   options: OptionsOrGroups<unknown, GroupBase<unknown>>;
   defaultValues?: OptionsOrGroups<unknown, GroupBase<unknown>>;
+  defaultValue?: OptionsOrGroups<unknown, GroupBase<unknown>>;
   labelClassName?: string;
   onChange?: (value: any) => any;
   isMulti?: boolean;

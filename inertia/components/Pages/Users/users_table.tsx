@@ -4,8 +4,10 @@ import TableSearchAndFilterComponent from '~/components/Global/table_search_and_
 
 export const UsersTable = ({
   setIsUserDetailsModalOpen,
+  setIsChangeUserRoleModalOpen,
 }: {
   setIsUserDetailsModalOpen: Dispatch<SetStateAction<boolean>>
+  setIsChangeUserRoleModalOpen: Dispatch<SetStateAction<boolean>>
 }) => {
   //
   const [isOpen, setIsOpen] = useState(false)
@@ -79,7 +81,10 @@ export const UsersTable = ({
                     >
                       Details
                     </button>
-                    <button className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4">
+                    <button
+                      onClick={() => setIsChangeUserRoleModalOpen(true)}
+                      className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
+                    >
                       Change role
                     </button>
                     <button className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-danger dark:hover:bg-meta-4">

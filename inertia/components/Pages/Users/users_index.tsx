@@ -3,10 +3,12 @@ import { PlusSquareIcon } from 'lucide-react'
 import { UsersTable } from './users_table'
 import { UserDetailsModal } from './UserModals/user_details_modal'
 import { useState } from 'react'
+import { ChangeUserRoleModal } from './UserModals/change_user_role_modal'
 
 export const UsersIndex = () => {
   //
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false)
+  const [isChangeUserRoleModalOpen, setIsChangeUserRoleModalOpen] = useState(false)
 
   return (
     <>
@@ -28,7 +30,10 @@ export const UsersIndex = () => {
         </div>
 
         {/*  */}
-        <UsersTable setIsUserDetailsModalOpen={setIsUserDetailsModalOpen} />
+        <UsersTable
+          setIsUserDetailsModalOpen={setIsUserDetailsModalOpen}
+          setIsChangeUserRoleModalOpen={setIsChangeUserRoleModalOpen}
+        />
       </div>
 
       {/*  */}
@@ -36,6 +41,14 @@ export const UsersIndex = () => {
         <UserDetailsModal
           isModalOpen={isUserDetailsModalOpen}
           setIsModalOpen={setIsUserDetailsModalOpen}
+        />
+      ) : null}
+
+      {/*  */}
+      {isChangeUserRoleModalOpen ? (
+        <ChangeUserRoleModal
+          isModalOpen={isChangeUserRoleModalOpen}
+          setIsModalOpen={setIsChangeUserRoleModalOpen}
         />
       ) : null}
     </>
