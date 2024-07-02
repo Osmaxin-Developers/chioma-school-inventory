@@ -2,8 +2,13 @@ import { HistoryIcon, PrinterIcon, RecycleIcon } from 'lucide-react'
 import { BillingAddressSection } from './billing_address_section'
 import { IssuedDateSection } from './issued_date_section'
 import { ItemsListTable } from './items_list_table'
+import { Dispatch, SetStateAction } from 'react'
 
-export const MainSectionIndex = () => {
+export const MainSectionIndex = ({
+  setIsRecordReturnsModalOpen,
+}: {
+  setIsRecordReturnsModalOpen: Dispatch<SetStateAction<boolean>>
+}) => {
   return (
     <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="p-4 sm:p-6 xl:p-9">
@@ -77,11 +82,14 @@ export const MainSectionIndex = () => {
                   <span>
                     <HistoryIcon />
                   </span>
-                  Refund history
+                  Return history
                 </button>
-                <button className="mt-10 inline-flex items-center justify-center gap-2.5 rounded bg-primary px-7.5 py-2.5 font-medium text-white hover:bg-opacity-90">
+                <button
+                  onClick={() => setIsRecordReturnsModalOpen(true)}
+                  className="mt-10 inline-flex items-center justify-center gap-2.5 rounded bg-primary px-7.5 py-2.5 font-medium text-white hover:bg-opacity-90"
+                >
                   <RecycleIcon />
-                  Record refund
+                  Record return
                 </button>
               </div>
             </div>
