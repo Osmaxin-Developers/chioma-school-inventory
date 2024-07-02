@@ -10,6 +10,7 @@
 import router from '@adonisjs/core/services/router'
 import LoginController from '../app/modules/auth/login/login_controller.js'
 import InventoryController from '../app/modules/inventories/inventories_controller.js'
+import UsageController from '../app/modules/usage/usage_controller.js'
 import { middleware } from './kernel.js'
 
 router
@@ -58,10 +59,9 @@ router.get('/dashboard/inventories/:id', [InventoryController, 'findOne'])
 router
   .on('/dashboard/record-inventory-usage')
   .renderInertia('dashboard/record-inventory-usage/index', { version: 6 })
-router
-  .on('/dashboard/inventory-usages')
-  .renderInertia('dashboard/inventory-usages/index', { version: 6 })
-router
-  .on('/dashboard/inventory-usages/usage-preview')
-  .renderInertia('dashboard/inventory-usages/usage-preview/index', { version: 6 })
+
+router.post('/usages', [UsageController, 'create'])
+router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
+router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
+
 router.on('/dashboard/users').renderInertia('dashboard/users/index', { version: 6 })

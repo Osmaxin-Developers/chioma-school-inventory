@@ -60,6 +60,12 @@ export class UsageService {
         }))
       )
 
+      for (const inv of inventories) {
+        const inventory = await Inventory.findOrFail(inv.id)
+        inventory.quantity -= inv.quantity
+        inventory.save()
+      }
+
       return usage
     })
 
@@ -69,7 +75,9 @@ export class UsageService {
   public async findOne(id: number) {
     const usage = await Usage.findOrFail(id)
 
-    usage.load('usagesInventories')
+    usage.load('usagesInventories', (query) => {
+      query.preload('inventory')
+    })
 
     return usage
   }

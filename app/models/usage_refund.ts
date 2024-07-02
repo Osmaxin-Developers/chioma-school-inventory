@@ -3,15 +3,15 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Inventory from './inventory.js'
 
-export default class UsagesInventory extends BaseModel {
+export default class UsageRefund extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare inventory_id: number
+  declare usage_id: number
 
   @column()
-  declare usage_id: number
+  declare inventory_id: number
 
   @column()
   declare quantity: number
@@ -21,9 +21,6 @@ export default class UsagesInventory extends BaseModel {
 
   @column()
   declare quantity_after: number
-
-  @column()
-  declare usage_price: number
 
   @column.dateTime({ autoCreate: true })
   declare created_at: DateTime
