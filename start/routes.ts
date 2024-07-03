@@ -56,6 +56,10 @@ router
 
 router.get('/dashboard/inventories/:id', [InventoryController, 'findOne'])
 
+
+router.get('/dashboard/inventories/edit/:id', [InventoryController, 'showEdit'])
+
+
 router
   .on('/dashboard/record-inventory-usage')
   .renderInertia('dashboard/record-inventory-usage/index', { version: 6 })

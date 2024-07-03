@@ -35,6 +35,14 @@ export default class InventoryController {
     return this.ctx.inertia.render('dashboard/inventories/preview/index', { inventory })
   }
 
+  public async showEdit() {
+    const id = this.ctx.request.param('id')
+
+    const inventory = await this.inventoryService.findOne(id)
+
+    return this.ctx.inertia.render('dashboard/inventories/edit/index', { inventory })
+  }
+
   public async findAll() {
     const page = this.ctx.request.qs().page
     const size = this.ctx.request.qs().size

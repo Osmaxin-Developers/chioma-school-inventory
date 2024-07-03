@@ -4,6 +4,7 @@ import { ModalProps } from '~/base/interfaces/i_modal_props'
 import { cn } from '~/base/libs/twm'
 import Modal from './modal'
 import ModalHeader from './modal_header'
+import { CircleIcon, LoaderIcon } from 'lucide-react'
 
 // const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -70,16 +71,18 @@ const DeleteModal: FC<Omit<ModalProps, 'children'>> = ({
             </div>
           </div>
 
-          <div className={`flex items-center justify-end space-x-4  px-5 pt-2.5 pb-8 text-right`}>
+          <div className={`flex items-center justify-end space-x-6  px-5 pt-2.5 pb-8 text-right`}>
             <button
-              className="mt-7 border-none text-white bg-dangerColor600 px-7 text-sm font-medium  transition-all hover:bg-dangerColor600/80"
+              className="mt-7 border-none flex items-center text-white bg-dangerColor600 px-7 py-2 rounded-sm text-sm font-medium  transition-all hover:bg-dangerColor600/80"
               onClick={onConfirm}
             >
               {titleValue ?? 'Delete'}
+              {isLoading ? <LoaderIcon size={18} className="animate-spin ml-2" /> : null}
             </button>
 
             <button
-              className="text-white mt-7 border px-6 text-sm font-medium hover:text-primary !shadow-none transition-all hover:bg-grayColor100"
+              disabled={isLoading}
+              className="text-black mt-7 border px-6 py-2 rounded-sm text-sm font-medium hover:text-primary !shadow-none transition-all hover:bg-gray-3"
               onClick={() => {
                 if (!isLoading && onClose) {
                   onClose()
