@@ -6,8 +6,10 @@ import { Dispatch, SetStateAction } from 'react'
 
 export const MainSectionIndex = ({
   setIsRecordReturnsModalOpen,
+  setIsRecordHistoryModalOpen,
 }: {
   setIsRecordReturnsModalOpen: Dispatch<SetStateAction<boolean>>
+  setIsRecordHistoryModalOpen: Dispatch<SetStateAction<boolean>>
 }) => {
   return (
     <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -78,7 +80,10 @@ export const MainSectionIndex = ({
               </p>
 
               <div className="grid sm:grid-cols-2 sm:gap-x-8">
-                <button className="inline-flex items-center justify-center mt-10 gap-2.5 rounded-md border border-primary px-7.5 py-2.5 text-center font-medium text-primary hover:bg-opacity-90">
+                <button
+                  onClick={() => setIsRecordHistoryModalOpen(true)}
+                  className="inline-flex items-center justify-center mt-10 gap-2.5 rounded-md border border-primary px-7.5 py-2.5 text-center font-medium text-primary hover:bg-opacity-90"
+                >
                   <span>
                     <HistoryIcon />
                   </span>
