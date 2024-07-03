@@ -76,6 +76,7 @@
     "@headlessui/react": "^2.1.1",
     "@inertiajs/react": "^1.2.0",
     "@vinejs/vine": "^2.1.0",
+    "classnames": "^2.5.1",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
     "edge.js": "^6.0.2",

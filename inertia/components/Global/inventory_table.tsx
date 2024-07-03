@@ -1,10 +1,15 @@
 import { ModelPagination } from '#interfaces/model.interface'
 import type Inventory from '#models/inventory'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { ChevronDownIcon } from 'lucide-react'
 import { useState } from 'react'
+import Pagination from '../Pagination/Pagination'
 
-export const InventoryTable = ({ inventories }: { inventories: ModelPagination<Inventory> }) => {
+export const InventoryTable = () => {
+  const { inventories } = usePage<{ inventories: ModelPagination<Inventory> }>().props
+
+  const { data, meta } = inventories
+
   //
   const [isOpen, setIsOpen] = useState(false)
   const [isActiveId, setIsActiveId] = useState<number>()
@@ -35,11 +40,10 @@ export const InventoryTable = ({ inventories }: { inventories: ModelPagination<I
             </div>
           </div>
           {/* <!-- table header end --> */}
-
           {/* <!-- table body start --> */}
           <div className="bg-white dark:bg-boxdark rounded-b-[10px]">
             {/* <!-- table row item --> */}
-            {inventories.data.map((inventory) => (
+            {data.map((inventory) => (
               <div className="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
                 <div className="col-span-3 flex items-start space-x-3">
                   <div className="h-9 hidden sm:block w-full max-w-9 relative flex-shrink-0 rounded-xl overflow-hidden">
@@ -92,7 +96,7 @@ export const InventoryTable = ({ inventories }: { inventories: ModelPagination<I
                         Delete
                       </button>
                       <Link
-                        href={`/dashboard/inventories/preview`}
+                        href={`/dashboard/inventories/${inventory.id}`}
                         className="flex w-full px-4 py-2 text-sm hover:bg-whiter hover:text-primary dark:hover:bg-meta-4"
                       >
                         Details
@@ -103,6 +107,8 @@ export const InventoryTable = ({ inventories }: { inventories: ModelPagination<I
               </div>
             ))}
           </div>
+
+          <Pagination meta={meta} />
           {/* <!-- table body end --> */}
         </div>
       </div>

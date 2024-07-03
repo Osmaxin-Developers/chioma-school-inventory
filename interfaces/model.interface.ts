@@ -1,3 +1,4 @@
+import { ModelObject } from '@adonisjs/lucid/types/model'
 import { DateTime } from 'luxon'
 
 export interface Pagination {
@@ -6,8 +7,18 @@ export interface Pagination {
 }
 
 export interface ModelPagination<T> {
-  meta: any
-  data: T[]
+  meta: {
+    current_page: number
+    first_page: number
+    first_page_url: string
+    last_page: number
+    last_page_url: string
+    next_page_url: string
+    per_page: number
+    previous_page_url: number
+    total: number
+  }
+  data: ModelObject[]
 }
 
 export interface IBaseModel {
