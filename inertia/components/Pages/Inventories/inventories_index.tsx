@@ -1,8 +1,12 @@
+import { ModelPagination } from '#interfaces/model.interface'
+import type Inventory from '#models/inventory'
 import { Link } from '@inertiajs/react'
 import { PlusSquareIcon } from 'lucide-react'
 import { InventoryTable } from '~/components/Global/inventory_table'
 
-export const InventoriesIndex = () => {
+export const InventoriesIndex = ({ inventories }: { inventories: ModelPagination<Inventory> }) => {
+  //
+
   return (
     <div>
       {/*  */}
@@ -18,7 +22,7 @@ export const InventoriesIndex = () => {
         </Link>
       </div>
       {/*  */}
-      <InventoryTable />
+      <InventoryTable inventories={inventories} />
     </div>
   )
 }

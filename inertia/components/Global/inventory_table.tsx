@@ -1,9 +1,10 @@
+import { ModelPagination } from '#interfaces/model.interface'
+import type Inventory from '#models/inventory'
 import { Link } from '@inertiajs/react'
 import { ChevronDownIcon } from 'lucide-react'
 import { useState } from 'react'
-import { inventories } from '~/base/dummy_data/inventories'
 
-export const InventoryTable = () => {
+export const InventoryTable = ({ inventories }: { inventories: ModelPagination<Inventory> }) => {
   //
   const [isOpen, setIsOpen] = useState(false)
   const [isActiveId, setIsActiveId] = useState<number>()
@@ -38,7 +39,7 @@ export const InventoryTable = () => {
           {/* <!-- table body start --> */}
           <div className="bg-white dark:bg-boxdark rounded-b-[10px]">
             {/* <!-- table row item --> */}
-            {inventories.map((inventory) => (
+            {inventories.data.map((inventory) => (
               <div className="grid grid-cols-12 border-t border-[#EEEEEE] px-5 py-4 dark:border-strokedark lg:px-7.5 2xl:px-11">
                 <div className="col-span-3 flex items-start space-x-3">
                   <div className="h-9 hidden sm:block w-full max-w-9 relative flex-shrink-0 rounded-xl overflow-hidden">
@@ -60,7 +61,9 @@ export const InventoryTable = () => {
                 </div>
 
                 <div className="col-span-2">
-                  <p className="text-[#637381] dark:text-bodydark">{inventory.status}</p>
+                  <p className="text-[#637381] dark:text-bodydark">
+                    {inventory.created_at.toString()}
+                  </p>
                 </div>
 
                 <div className="col-span-1 relative">

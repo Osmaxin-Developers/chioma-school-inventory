@@ -40,9 +40,11 @@ export default class InventoryController {
     const size = this.ctx.request.qs().size
     const search = this.ctx.request.qs().search
 
-    const inventories = await this.inventoryService.findAll(page, size, search)
+    const inventories = (await this.inventoryService.findAll(page, size, search)).toJSON()
 
-    return this.ctx.inertia.render('dashboard/inventories/index', { inventories })
+    return this.ctx.inertia.render('dashboard/inventories/index', {
+      inventories,
+    })
   }
 
   public async remove() {
