@@ -4,7 +4,7 @@ import { RightSection } from './RightSection/right_section'
 
 export const RecordInventoryUsageIndex = () => {
   //
-  const { handleSelectInventory, isSelectedInventory, selectedInventories } =
+  const { handleSelectInventory, isSelectedInventory, selectedInventories, handleSearchInventory } =
     useSelectedInventories()
 
   return (
@@ -20,6 +20,7 @@ export const RecordInventoryUsageIndex = () => {
         <LeftSection
           handleSelectInventory={handleSelectInventory}
           isSelectedInventory={isSelectedInventory}
+          handleSearchInventory={handleSearchInventory}
         />
         <RightSection selectedInventories={selectedInventories} />
       </div>

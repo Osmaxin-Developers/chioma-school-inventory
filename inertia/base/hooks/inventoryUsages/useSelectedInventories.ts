@@ -1,5 +1,7 @@
 import type Inventory from '#models/inventory'
-import { useState } from 'react'
+import { router } from '@inertiajs/react'
+import { ChangeEvent, useState } from 'react'
+import debounce from 'lodash.debounce'
 
 export const useSelectedInventories = () => {
   //
@@ -29,5 +31,10 @@ export const useSelectedInventories = () => {
     return selectedInventories?.find((inventory) => inventory.id === inventoryId) ? true : false
   }
 
-  return { isSelectedInventory, selectedInventories, handleSelectInventory }
+  //
+  const handleSearchInventory = debounce((e: ChangeEvent<HTMLInputElement>) => {
+    router.get(`/dashboard/record-inventory-usage?search=${e.target.value.trim()}`)
+  }, 300)
+
+  return { isSelectedInventory, selectedInventories, handleSelectInventory, handleSearchInventory }
 }

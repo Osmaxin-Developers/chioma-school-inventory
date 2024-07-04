@@ -69,7 +69,7 @@ export class InventoryService {
 
     let query = Inventory.query()
     if (search) {
-      query = query.whereLike('name', '%' + search + '%')
+      query = query.whereILike('name', '%' + search + '%')
     }
 
     return query.paginate(page, size)

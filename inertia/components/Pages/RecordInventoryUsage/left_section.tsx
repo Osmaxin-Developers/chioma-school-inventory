@@ -1,15 +1,18 @@
 import { ModelPagination } from '#interfaces/model.interface'
 import type Inventory from '#models/inventory'
-import { usePage } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import { SearchIcon } from 'lucide-react'
+import { ChangeEvent } from 'react'
 import { Input } from '~/components/Global/FormComponents/input'
 
 export const LeftSection = ({
   handleSelectInventory,
   isSelectedInventory,
+  handleSearchInventory,
 }: {
   handleSelectInventory: (value: Inventory) => void
   isSelectedInventory: (value: number) => boolean
+  handleSearchInventory: (e: ChangeEvent<HTMLInputElement>) => void
 }) => {
   //
   const { inventories } = usePage<{ inventories: ModelPagination<Inventory> }>().props
@@ -30,6 +33,8 @@ export const LeftSection = ({
             type="text"
             placeholder="Type to search inventory"
             className="w-full bg-gray-2 dark:bg-boxdark-2 pl-10 pr-4 focus:outline-none"
+            onChange={handleSearchInventory}
+            vla
           />
         </div>
       </div>
@@ -77,6 +82,12 @@ export const LeftSection = ({
             </div>
           ))}
       </div>
+      {/*  */}
+      {!data.length ? (
+        <div className="max-h-full h-[400px] flex flex-col items-center justify-center">
+          <p className="font-medium">No item found. Nothing to show here</p>
+        </div>
+      ) : null}
     </div>
   )
 }
