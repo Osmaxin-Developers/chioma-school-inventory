@@ -56,18 +56,22 @@ router
 
 router.get('/dashboard/inventories/:id', [InventoryController, 'findOne'])
 
-
 router.get('/dashboard/inventories/edit/:id', [InventoryController, 'showEdit'])
 
+router
+  .get('/dashboard/record-inventory-usage', [UsageController, 'renderRecordUsagePage'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
 
 router
-  .on('/dashboard/record-inventory-usage')
-  .renderInertia('dashboard/record-inventory-usage/index', { version: 6 })
-
-router.post('/usages', [UsageController, 'create'])
+  .post('/usages', [UsageController, 'create'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
 router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
 // router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
-router.on('/dashboard/inventory-usages/usage-preview').renderInertia('dashboard/inventory-usages/usage-preview/index')
+router
+  .on('/dashboard/inventory-usages/usage-preview')
+  .renderInertia('dashboard/inventory-usages/usage-preview/index')
 
 router.on('/dashboard/users').renderInertia('dashboard/users/index', { version: 6 })
 router.on('/dashboard/users/create').renderInertia('dashboard/users/create/index', { version: 6 })

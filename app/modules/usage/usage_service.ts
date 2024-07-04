@@ -43,7 +43,7 @@ export class UsageService {
           description,
           receiver_location,
           receiver_name,
-          user_id: this.ctx.auth?.user?.id,
+          user_id: this.ctx.auth.getUserOrFail().id,
         },
         {
           client: trx,

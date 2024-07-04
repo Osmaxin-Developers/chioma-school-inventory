@@ -8,9 +8,9 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.integer('user_id').unsigned().notNullable()
-      table.integer('receiver_name').nullable()
-      table.integer('receiver_location').nullable()
-      table.integer('description').nullable()
+      table.string('receiver_name').nullable()
+      table.string('receiver_location').nullable()
+      table.string('description').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

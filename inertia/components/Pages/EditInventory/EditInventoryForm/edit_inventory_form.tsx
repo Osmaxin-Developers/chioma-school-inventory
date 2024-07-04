@@ -23,7 +23,7 @@ export const EditInventoryForm = () => {
 
   const createInventory = (e: any) => {
     e.preventDefault()
-
+ 
     patch('/inventories/' + inventory.id, {
       forceFormData: true,
       onSuccess: () => {

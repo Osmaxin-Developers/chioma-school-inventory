@@ -10,7 +10,7 @@ export const InventoryTable = () => {
   const { inventories } = usePage<{ inventories: ModelPagination<Inventory> }>().props
 
   const { data, meta } = inventories
-  //
+  // 
   const [isOpen, setIsOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isActiveId, setIsActiveId] = useState<number>()

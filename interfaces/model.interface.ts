@@ -18,7 +18,7 @@ export interface ModelPagination<T> {
     previous_page_url: number
     total: number
   }
-  data: ModelObject[]
+  data: T[]
 }
 
 export interface IBaseModel {
