@@ -1,6 +1,6 @@
 import { ModelPagination } from '#interfaces/model.interface'
 import type Inventory from '#models/inventory'
-import { router, usePage } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import { SearchIcon } from 'lucide-react'
 import { ChangeEvent } from 'react'
 import { Input } from '~/components/Global/FormComponents/input'
@@ -30,11 +30,10 @@ export const LeftSection = ({
 
           <Input
             name="search"
-            type="text"
+            type="search"
             placeholder="Type to search inventory"
-            className="w-full bg-gray-2 dark:bg-boxdark-2 pl-10 pr-4 focus:outline-none"
+            className="w-full bg-gray-2 dark:bg-boxdark-2 pl-10 pr-4 focus:outline-none "
             onChange={handleSearchInventory}
-            vla
           />
         </div>
       </div>
