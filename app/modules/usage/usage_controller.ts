@@ -33,7 +33,7 @@ export default class UsageController {
     const size = this.ctx.request.qs().size
     const search = this.ctx.request.qs().search
 
-    const usages = await this.usageService.findAll(page, size, search)
+    const usages = (await this.usageService.findAll(page, size, search)).toJSON()
 
     return this.ctx.inertia.render('dashboard/inventory-usages/index', { usages })
   }

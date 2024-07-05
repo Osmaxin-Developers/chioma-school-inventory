@@ -138,7 +138,7 @@ export const InventoryTable = () => {
               ))}
             </div>
 
-            <Pagination meta={meta} />
+            <Pagination meta={meta} pageBaseUrl='/dashboard/inventories' />
             {/* <!-- table body end --> */}
           </div>
         </div>

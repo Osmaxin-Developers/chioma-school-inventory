@@ -4,9 +4,10 @@ import classNames from 'classnames'
 
 interface PaginationProps {
   meta: ModelPagination<any>['meta']
+  pageBaseUrl: string
 }
 
-export default function Pagination({ meta }: PaginationProps) {
+export default function Pagination({ meta, pageBaseUrl }: PaginationProps) {
   //
   const pageCount = (): number => {
     if (meta.total <= meta.per_page) {
@@ -33,7 +34,7 @@ export default function Pagination({ meta }: PaginationProps) {
             key={index}
             active={meta.current_page === index}
             label={`${index}`}
-            url={`/dashboard/inventories${pageUrl}=${index}`}
+            url={`${pageBaseUrl}${pageUrl}=${index}`}
           />
         )
       })}

@@ -67,8 +67,10 @@ router
   .post('/usages', [UsageController, 'create'])
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
+
 router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
-// router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
+router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
+
 router
   .on('/dashboard/inventory-usages/usage-preview')
   .renderInertia('dashboard/inventory-usages/usage-preview/index')

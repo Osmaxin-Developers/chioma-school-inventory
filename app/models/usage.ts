@@ -27,4 +27,10 @@ export default class Usage extends BaseModel {
 
   @hasMany(() => UsagesInventory)
   declare usagesInventories: HasMany<typeof UsagesInventory>
+
+  @column()
+  declare inventories_count: number
+
+  @column()
+  declare total_price: number
 }

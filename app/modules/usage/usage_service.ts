@@ -91,12 +91,14 @@ export class UsageService {
       query = query.whereLike('receiver_name', '%' + search + '%')
     }
 
-    query = query.withCount('usagesInventories')
+    query = query.withCount('usagesInventories', (query) => query.as('inventories_count'))
 
     query = query.withAggregate('usagesInventories', (query) =>
-      query.sum('usage_price').as('totalPrice')
+      query.sum('usage_price').as('total_price')
     )
 
-    return query.paginate(page, size)
+    const usages = await query.paginate(page, size)
+
+    return usages
   }
 }

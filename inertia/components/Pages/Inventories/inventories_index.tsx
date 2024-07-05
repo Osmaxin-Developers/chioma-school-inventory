@@ -3,8 +3,6 @@ import { PlusSquareIcon } from 'lucide-react'
 import { InventoryTable } from '~/components/Global/inventory_table'
 
 export const InventoriesIndex = () => {
-  //
-
   return (
     <div>
       {/*  */}
