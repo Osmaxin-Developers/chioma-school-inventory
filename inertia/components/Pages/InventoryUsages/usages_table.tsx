@@ -1,6 +1,7 @@
 import { ModelPagination } from '#interfaces/model.interface'
 import type Usage from '#models/usage'
-import { Link, usePage } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import debounce from 'lodash.debounce'
 import { EyeIcon } from 'lucide-react'
 import TableSearchAndFilterComponent from '~/components/Global/table_search_and_filter_component'
 import Pagination from '~/components/Pagination/Pagination'
@@ -10,13 +11,22 @@ export const UsagesTable = () => {
   const { usages } = usePage<{ usages: ModelPagination<Usage> }>().props
 
   const { data, meta } = usages
-console.log(data)
+
+  //
+  const handleSearchUsages = debounce((inputValue: string) => {
+    router.get(
+      `/dashboard/inventory-usages?search=${inputValue.trim()}`,
+      {},
+      { preserveState: true }
+    )
+  }, 300)
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="gap-4 sm:flex items-center justify-between">
           <h4 className="mb-6 text-xl font-bold text-black dark:text-white">Details</h4>
-          <TableSearchAndFilterComponent onSearch={() => {}}>
+          <TableSearchAndFilterComponent onSearch={handleSearchUsages}>
             <></>
           </TableSearchAndFilterComponent>
         </div>
@@ -61,11 +71,23 @@ console.log(data)
               </div>
 
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="font-medium text-meta-3">{453}</p>
+                <p className="font-medium text-meta-3">{item.inventories_count}</p>
               </div>
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                <p className="font-medium text-meta-5">$5,768</p>
+                <p className="font-medium text-meta-5">
+                  {new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    maximumFractionDigits: 10,
+                    currencyDisplay: 'symbol',
+                  }).format(
+                    item.usagesInventories.reduce(
+                      (acc, curr) => acc + Number(curr.total_price),
+                      0
+                    ) * Number(item.inventories_quantity)
+                  )}
+                </p>
               </div>
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">

@@ -92,12 +92,15 @@ export class UsageService {
     }
 
     query = query.withCount('usagesInventories', (query) => query.as('inventories_count'))
-
     query = query.withAggregate('usagesInventories', (query) =>
-      query.sum('usage_price').as('total_price')
+      query.sum('quantity').as('inventories_quantity')
     )
 
-    const usages = await query.paginate(page, size)
+    query = query.preload('usagesInventories', (query) =>
+      query.select(db.raw('quantity * usage_price as total_price'))
+    )
+
+    const usages = await query.orderBy('created_at', 'desc').paginate(page, size)
 
     return usages
   }

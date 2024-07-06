@@ -33,4 +33,7 @@ export default class Usage extends BaseModel {
 
   @column()
   declare total_price: number
+
+  @column()
+  declare inventories_quantity: number
 }
