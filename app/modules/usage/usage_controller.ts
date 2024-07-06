@@ -23,7 +23,7 @@ export default class UsageController {
   public async findOne() {
     const id = await this.ctx.request.param('id')
 
-    const usage = await this.usageService.findOne(id)
+    const usage = (await this.usageService.findOne(id)).toJSON()
 
     return this.ctx.inertia.render('dashboard/inventory-usages/usage-preview/index', { usage })
   }

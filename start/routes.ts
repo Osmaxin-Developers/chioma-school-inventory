@@ -11,6 +11,7 @@ import router from '@adonisjs/core/services/router'
 import LoginController from '../app/modules/auth/login/login_controller.js'
 import InventoryController from '../app/modules/inventories/inventories_controller.js'
 import UsageController from '../app/modules/usage/usage_controller.js'
+import UsageRefundController from '../app/modules/usage_refunds/usage_refunds_controller.js'
 import { middleware } from './kernel.js'
 
 router
@@ -68,12 +69,13 @@ router
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
 
-router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
-router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne'])
-
 router
-  .on('/dashboard/inventory-usages/usage-preview')
-  .renderInertia('dashboard/inventory-usages/usage-preview/index')
+  .post('/usage-refunds', [UsageRefundController, 'create'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
+router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
+router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne']).use(middleware.auth())
 
 router.on('/dashboard/users').renderInertia('dashboard/users/index', { version: 6 })
 router.on('/dashboard/users/create').renderInertia('dashboard/users/create/index', { version: 6 })

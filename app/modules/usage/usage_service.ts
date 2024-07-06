@@ -73,13 +73,21 @@ export class UsageService {
   }
 
   public async findOne(id: number) {
-    const usage = await Usage.findOrFail(id)
+    let query = Usage.query()
+      .where('id', id)
+      .preload('usagesInventories', (query) => {
+        query.preload('inventory')
+      })
 
-    usage.load('usagesInventories', (query) => {
-      query.preload('inventory')
-    })
+    query = query.withCount('usagesInventories', (query) => query.as('inventories_count'))
+    query = query.withAggregate('usagesInventories', (query) =>
+      query.sum('quantity').as('inventories_quantity')
+    )
 
-    return usage
+    query = query.preload('usagesInventories', (builder) => builder.preload('inventory'))
+    query = query.preload('usagesRefunds', (builder) => builder.preload('inventory'))
+
+    return query.firstOrFail()
   }
 
   public async findAll(page: number, size: number, search?: string) {

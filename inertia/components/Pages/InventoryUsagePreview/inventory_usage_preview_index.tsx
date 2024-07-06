@@ -1,3 +1,5 @@
+import type Usage from '#models/usage'
+import { usePage } from '@inertiajs/react'
 import { useState } from 'react'
 import { MainSectionIndex } from './MainSection/main_section_index'
 import { RecordReturnsModal } from './UsagePreviewModals/record_returns_modal'
@@ -7,6 +9,10 @@ export const InventoryUsagePreviewIndex = () => {
   //
   const [isRecordReturnsModalOpen, setIsRecordReturnsModalOpen] = useState(false)
   const [isRecordHistoryModalOpen, setIsRecordHistoryModalOpen] = useState(false)
+  //
+
+  //
+  const { usage } = usePage<{ usage: Usage }>().props
 
   return (
     <>
@@ -30,6 +36,7 @@ export const InventoryUsagePreviewIndex = () => {
         <MainSectionIndex
           setIsRecordReturnsModalOpen={setIsRecordReturnsModalOpen}
           setIsRecordHistoryModalOpen={setIsRecordHistoryModalOpen}
+          usageData={usage}
         />
       </div>
 
@@ -38,6 +45,7 @@ export const InventoryUsagePreviewIndex = () => {
         <RecordReturnsModal
           isModalOpen={isRecordReturnsModalOpen}
           setIsModalOpen={setIsRecordReturnsModalOpen}
+          usageData={usage}
         />
       ) : null}
 

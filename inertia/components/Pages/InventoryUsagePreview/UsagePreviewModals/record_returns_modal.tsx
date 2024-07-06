@@ -1,19 +1,23 @@
+import type Usage from '#models/usage'
 import { TransitionChild } from '@headlessui/react'
-import { CheckIcon, MinusIcon, PlusIcon, XCircleIcon } from 'lucide-react'
-import { Dispatch, SetStateAction, useState } from 'react'
-import { inventories } from '~/base/dummy_data/inventories'
+import { CheckIcon, LoaderIcon, XCircleIcon } from 'lucide-react'
+import { Dispatch, SetStateAction } from 'react'
+import { useRecordReturns } from '../../../../base/hooks/inventoryUsagePreview/useRecordReturns'
 import { Input } from '~/components/Global/FormComponents/input'
 import Modal from '~/components/Global/Modal/modal'
 
 export const RecordReturnsModal = ({
   isModalOpen = false,
   setIsModalOpen,
+  usageData,
 }: {
   isModalOpen: boolean
   setIsModalOpen: Dispatch<SetStateAction<boolean>>
+  usageData: Usage
 }) => {
   //
-  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const { handleQuantityChange, isChecked, isErrorId, setIsChecked, isLoading, recordReturns } =
+    useRecordReturns(usageData)
 
   return (
     <Modal className="flex items-center justify-center px-10 z-99999" isOpen={isModalOpen}>
@@ -89,23 +93,32 @@ export const RecordReturnsModal = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {inventories.slice(2).map((item) => (
-                      <tr>
+                    {usageData.usagesInventories.map((item) => (
+                      <tr key={item.id}>
                         <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                           <div className="flex items-center flex-wrap gap-3">
                             <img
-                              src="../../../../resources/images/product-image.jpg"
+                              src={item.inventory.image_url ?? ''}
                               alt="profile"
                               className="h-7 w-7 object-cover object-center rounded-md"
                             />
-                            <h5 className="font-medium text-black dark:text-white">Free Package</h5>
+                            <h5 className="font-medium text-black dark:text-white">
+                              {item.inventory.name}
+                            </h5>
                           </div>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                          <p className="text-black dark:text-white font-medium">$0.00</p>
+                          <p className="text-black dark:text-white font-medium">
+                            {new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'GBP',
+                              maximumFractionDigits: 10,
+                              currencyDisplay: 'symbol',
+                            }).format(Number(item.usage_price))}{' '}
+                          </p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                          <p className="font-semibold flex-1">40</p>
+                          <p className="font-semibold flex-1">{Number(item.quantity ?? 0)}</p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <div className="max-w-[100px]">
@@ -114,6 +127,9 @@ export const RecordReturnsModal = ({
                               type="number"
                               placeholder="Quantity"
                               className="py-1 px-2"
+                              errorMessage={isErrorId === item.id ? 'invalid quantity' : ''}
+                              onChange={(e) => handleQuantityChange(e, item)}
+                              disabled={isChecked}
                             />
                           </div>
                         </td>
@@ -132,14 +148,17 @@ export const RecordReturnsModal = ({
             <button
               onClick={() => setIsModalOpen(false)}
               className="inline-flex items-center justify-center my-5 gap-2.5 rounded-md border border-primary px-7.5 py-2.5 text-center font-medium text-primary hover:bg-opacity-90"
+              disabled={isLoading}
             >
               Cancel
             </button>
             <button
-              onClick={() => {}}
+              onClick={recordReturns}
+              disabled={isLoading}
               className="my-5 inline-flex items-center justify-center gap-2.5 rounded bg-primary px-7.5 py-2.5 font-medium text-white hover:bg-opacity-90"
             >
               Record return
+              {isLoading ? <LoaderIcon size={18} className="animate-spin" /> : null}
             </button>
           </div>
         </div>

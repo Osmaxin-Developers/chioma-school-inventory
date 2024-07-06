@@ -98,7 +98,7 @@ export const UsagesTable = () => {
 
               <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
                 <Link
-                  href={`/dashboard/inventory-usages/usage-preview/${item.id}`}
+                  href={`/dashboard/inventory-usages/${item.id}`}
                   className="hover:bg-primary/20 rounded-full p-1 transition-all"
                 >
                   <EyeIcon />
