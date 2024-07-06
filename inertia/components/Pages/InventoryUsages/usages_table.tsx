@@ -21,6 +21,8 @@ export const UsagesTable = () => {
     )
   }, 300)
 
+  console.log(data)
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -82,10 +84,7 @@ export const UsagesTable = () => {
                     maximumFractionDigits: 10,
                     currencyDisplay: 'symbol',
                   }).format(
-                    item.usagesInventories.reduce(
-                      (acc, curr) => acc + Number(curr.total_price),
-                      0
-                    ) * Number(item.inventories_quantity)
+                    item.usagesInventories.reduce((acc, curr) => acc + Number(curr.total_price), 0)
                   )}
                 </p>
               </div>
