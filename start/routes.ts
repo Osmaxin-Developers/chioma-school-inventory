@@ -88,7 +88,17 @@ router
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
 
-  router
+router
   .post('/dashboard/users/create', [UserController, 'create'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
+router
+  .delete('/dashboard/users/:id', [UserController, 'delete'])
+  .use(middleware.auth())
+  .use(middleware.userRole({ roles: ['super-admin'] }))
+
+  router
+  .patch('/dashboard/users/change-role', [UserController, 'changeRole'])
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))

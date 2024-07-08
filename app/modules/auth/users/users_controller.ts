@@ -37,9 +37,9 @@ export class UserController {
     const size = this.ctx.request.qs().size
     const search = this.ctx.request.qs().search
 
-    const usages = await this.userService.findAll(page, size, search)
+    const { users, roles } = await this.userService.findAll(page, size, search)
 
-    return this.ctx.inertia.render('dashboard/users/index', { usages })
+    return this.ctx.inertia.render('dashboard/users/index', { users, roles })
   }
 
   public async changeRole() {
@@ -52,7 +52,7 @@ export class UserController {
   }
 
   public async delete() {
-    const userId = this.ctx.request.body().user_id
+    const userId = this.ctx.request.param('id')
 
     await this.userService.delete(userId)
 

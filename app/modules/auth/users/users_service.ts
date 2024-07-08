@@ -48,11 +48,13 @@ export class UserService {
   public async findOne(id: number) {
     const user = await User.findOrFail(id)
 
+    user.load('roles')
+
     return user
   }
 
   public async renderCreatePage() {
-    return await Role.query().whereNot('slug', 'active').whereNot('slug', 'active')
+    return await Role.query().whereNot('slug', 'active').whereNot('slug', 'user')
   }
 
   public async findAll(page: number, size: number, search?: string) {
@@ -64,6 +66,12 @@ export class UserService {
       query = query.whereLike('full_name', '%' + search + '%')
     }
 
-    return query.paginate(page, size)
+    query.preload('roles', (builder) => builder.whereNot('slug', 'active').whereNot('slug', 'user'))
+
+    const roles = await Role.query().whereNot('slug', 'active').whereNot('slug', 'user')
+
+    const users = (await query.orderBy('created_at', 'desc').paginate(page, size)).toJSON()
+
+    return { roles, users }
   }
 }

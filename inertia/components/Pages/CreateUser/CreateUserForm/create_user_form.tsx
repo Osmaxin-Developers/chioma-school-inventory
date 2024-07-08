@@ -26,7 +26,7 @@ export const CreateUserForm = () => {
 
     post('/dashboard/users/create', {
       onSuccess: () => {
-        toast('User created successfully')
+        toast.success('User created successfully', {style:{color:'green'}})
         reset()
         formRef.current?.reset()
       },
