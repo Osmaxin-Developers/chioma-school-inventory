@@ -23,7 +23,13 @@ export class UserController {
 
     const usage = await this.userService.findOne(id)
 
-    return this.ctx.inertia.render('dashboard/inventory-usages/usage-preview/index', { usage })
+    return this.ctx.inertia.render('dashboard/users/index/:id', { usage })
+  }
+
+  public async renderCreatePage() {
+    const roles = await this.userService.renderCreatePage()
+
+    return this.ctx.inertia.render('dashboard/users/create/index', { roles })
   }
 
   public async findAll() {
@@ -33,7 +39,7 @@ export class UserController {
 
     const usages = await this.userService.findAll(page, size, search)
 
-    return this.ctx.inertia.render('dashboard/inventory-usages/index', { usages })
+    return this.ctx.inertia.render('dashboard/users/index', { usages })
   }
 
   public async changeRole() {

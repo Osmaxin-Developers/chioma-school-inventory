@@ -51,6 +51,10 @@ export class UserService {
     return user
   }
 
+  public async renderCreatePage() {
+    return await Role.query().whereNot('slug', 'active').whereNot('slug', 'active')
+  }
+
   public async findAll(page: number, size: number, search?: string) {
     page = page ?? 1
     size = size ?? 10
@@ -62,6 +66,4 @@ export class UserService {
 
     return query.paginate(page, size)
   }
-
-
 }
