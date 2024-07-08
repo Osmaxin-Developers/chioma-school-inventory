@@ -54,6 +54,7 @@ export const InventoryUsagePreviewIndex = () => {
         <ReturnsHistoryModal
           isModalOpen={isRecordHistoryModalOpen}
           setIsModalOpen={setIsRecordHistoryModalOpen}
+          usageData={usage}
         />
       ) : null}
     </>

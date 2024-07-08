@@ -75,7 +75,7 @@ export class UsageRefundService {
     return usage
   }
 
-  public async findAll(page: number, size: number) {
+  public async findAll(page: number, size: number, usageId?: number) {
     page = page ?? 1
     size = size ?? 10
 
