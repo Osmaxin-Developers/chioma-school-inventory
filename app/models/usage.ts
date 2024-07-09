@@ -40,4 +40,7 @@ export default class Usage extends BaseModel {
 
   @column()
   declare inventories_quantity: number
+
+  @column()
+  declare usages_count: number
 }

@@ -6,11 +6,20 @@ import { useState } from 'react'
 import Pagination from '../Pagination/Pagination'
 import DeleteModal from './Modal/delete_modal'
 
-export const InventoryTable = () => {
-  const { inventories } = usePage<{ inventories: ModelPagination<Inventory> }>().props
+interface Meta {
+  current_page: number
+  first_page: number
+  first_page_url: string
+  last_page: number
+  last_page_url: string
+  next_page_url: string
+  per_page: number
+  previous_page_url: number
+  total: number
+}
 
-  const { data, meta } = inventories
-  // 
+export const InventoryTable = ({ data, meta }: { data: Inventory[]; meta?: Meta }) => {
+  //
   const [isOpen, setIsOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isActiveId, setIsActiveId] = useState<number>()
@@ -138,8 +147,18 @@ export const InventoryTable = () => {
               ))}
             </div>
 
-            <Pagination meta={meta} pageBaseUrl='/dashboard/inventories' />
+            {meta && meta.total > 0 ? (
+              <Pagination meta={meta} pageBaseUrl="/dashboard/inventories" />
+            ) : null}
             {/* <!-- table body end --> */}
+
+            {!data.length ? (
+              <div className="mt-28">
+                <p className="font-semibold text-title-xsm text-center">
+                  You have not added any inventory. The inventories you added will show here
+                </p>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

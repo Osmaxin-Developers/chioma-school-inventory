@@ -14,6 +14,7 @@ import InventoryController from '../app/modules/inventories/inventories_controll
 import UsageController from '../app/modules/usage/usage_controller.js'
 import UsageRefundController from '../app/modules/usage_refunds/usage_refunds_controller.js'
 import { middleware } from './kernel.js'
+import DashboardController from '../app/modules/dashboard/dashboard_controller.js'
 
 router
   .get('/', ({ view }) => {
@@ -28,8 +29,7 @@ router
 
 router.post('/login', [LoginController, 'login']).use(middleware.guest())
 router
-  .on('/dashboard')
-  .renderInertia('dashboard/index', { version: 6 })
+  .get('/dashboard', [DashboardController, 'getDashboardData'])
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
 router
@@ -98,7 +98,7 @@ router
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
 
-  router
+router
   .patch('/dashboard/users/change-role', [UserController, 'changeRole'])
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
