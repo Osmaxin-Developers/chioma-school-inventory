@@ -33,4 +33,7 @@ export default class UsagesInventory extends BaseModel {
 
   @belongsTo(() => Inventory)
   declare inventory: BelongsTo<typeof Inventory>
+
+  @column()
+  declare total_price: number
 }

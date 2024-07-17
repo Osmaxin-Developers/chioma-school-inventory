@@ -27,7 +27,7 @@ export class InventoryService {
     return inventory
   }
 
-  public async update(data: Partial<Inventory> & { inventory_photo: MultipartFile; id: number }) {
+  public async update(data: Partial<Inventory> & { inventory_photo?: MultipartFile; id: number }) {
     const inventory = await Inventory.findOrFail(data.id)
 
     let uploadedInventoryPhoto: UploadApiResponse | undefined = undefined
@@ -38,13 +38,13 @@ export class InventoryService {
       )) as UploadApiResponse
     }
 
-    inventory.merge({
+    await inventory.merge({
       name: data.name ?? inventory.name,
       description: data.description ?? inventory.description,
       image_url: uploadedInventoryPhoto?.secure_url ?? inventory.image_url,
       price: data.price ?? inventory.price,
       quantity: data.quantity ?? inventory.quantity,
-    })
+    }).save()
 
     return inventory
   }
@@ -69,7 +69,7 @@ export class InventoryService {
 
     let query = Inventory.query()
     if (search) {
-      query = query.whereLike('name', '%' + search + '%')
+      query = query.whereILike('name', '%' + search + '%')
     }
 
     return query.paginate(page, size)

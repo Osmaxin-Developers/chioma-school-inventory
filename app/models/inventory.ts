@@ -33,4 +33,10 @@ export default class Inventory extends BaseModel {
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
+
+  @column()
+  declare out_of_stock_inventories: number
+
+  @column()
+  declare inventories_count: number
 }

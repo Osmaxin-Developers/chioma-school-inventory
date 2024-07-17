@@ -1,3 +1,4 @@
+import UsagesInventory from '#models/usages_inventory'
 import { inject } from '@adonisjs/core'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
@@ -12,37 +13,51 @@ export class UsageRefundService {
   constructor(private readonly ctx: HttpContext) {}
 
   public async create(data: Infer<typeof createUsageRefundValidator>) {
-    const { inventories } = data
+    const { usage_id, usage_inventories } = data
 
     const usageRefund = await db.transaction(async (trx) => {
-      const usedInventories = await Inventory.query().whereIn(
-        'id',
-        inventories.map((inv) => inv.id)
-      )
+      const usedInventories = await UsagesInventory.query({ client: trx })
+        .whereIn(
+          'id',
+          usage_inventories.map((inv) => inv.id)
+        )
+        .preload('inventory')
 
-      if (inventories.length !== usedInventories.length) {
+      if (usage_inventories.length !== usedInventories.length) {
         throw new Exception('inconsistent inventories, some inventories are not found')
       }
 
       const usageRefunds = await UsageRefund.createMany(
-        inventories.map(({ id, quantity }) => ({
-          inventory_id: id,
-          quantity,
-          quantity_after: (usedInventories.find((inv) => inv.id === id)?.quantity ?? 0) - quantity,
-          quantity_before: usedInventories.find((inv) => inv.id === id)?.quantity,
-          usage_price: usedInventories.find((inv) => inv.id === id)?.price,
+        usedInventories.map(({ id, inventory_id }) => ({
+          inventory_id: inventory_id,
+          quantity: usage_inventories.find((usageInv) => usageInv.id === id)?.quantity,
+          quantity_after:
+            (usedInventories.find((inv) => inv.id === id)?.inventory.quantity ?? 0) -
+            (usage_inventories.find((usageInv) => usageInv.id === id)?.quantity ?? 0),
+          quantity_before: usedInventories.find((inv) => inv.id === id)?.inventory.quantity,
           user_id: this.ctx.auth?.user?.id,
+          usage_id,
         })),
         {
           client: trx,
         }
       )
 
-      for (const inv of inventories) {
-        const inventory = await Inventory.findOrFail(inv.id, {
+      for (const inv of usedInventories) {
+        // reduce inventory quantity
+        const usageInventory = await UsagesInventory.findOrFail(inv.id, {
           client: trx,
         })
-        inventory.quantity += inv.quantity
+        usageInventory.quantity -=
+          usage_inventories.find((usageInv) => usageInv.id === inv.id)?.quantity ?? 0
+        usageInventory.save()
+
+        // increase inventory quantity
+        const inventory = await Inventory.findOrFail(inv.inventory_id, {
+          // client: trx,
+        })
+        inventory.quantity +=
+          usage_inventories.find((usageInv) => usageInv.id === inv.id)?.quantity ?? 0
         inventory.save()
       }
 
@@ -60,7 +75,7 @@ export class UsageRefundService {
     return usage
   }
 
-  public async findAll(page: number, size: number) {
+  public async findAll(page: number, size: number, usageId?: number) {
     page = page ?? 1
     size = size ?? 10
 

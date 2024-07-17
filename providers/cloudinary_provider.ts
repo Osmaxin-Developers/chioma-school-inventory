@@ -1,6 +1,6 @@
+import env from '#start/env'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { v2 } from 'cloudinary'
-import env from '#start/env'
 
 export default class CloudinaryProvider {
   constructor(protected app: ApplicationService) {}
@@ -27,7 +27,7 @@ export default class CloudinaryProvider {
     v2.config({
       cloud_name: env.get('CLOUDINARY_CLOUD_NAME'),
       api_key: env.get('CLOUDINARY_API_KEY'),
-      api_secret: env.get('CLOUDINARY_API_SECRETE'),
+      api_secret: env.get('CLOUDINARY_API_SECRET'),
     })
   }
 

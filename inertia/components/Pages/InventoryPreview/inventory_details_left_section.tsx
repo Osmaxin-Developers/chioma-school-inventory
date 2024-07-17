@@ -10,8 +10,15 @@ export const InventoryDetailsLeftSection = ({ inventory }: { inventory: Inventor
       {/*  */}
       <div className="grid grid-cols-3 gap-4">
         <div className="flex flex-col">
-          <h3 className="text-title-sm font-medium text-black dark:text-white">Price:</h3>
-          <p className="text-lg">${inventory.price}</p>
+          <h3 className="text-title-sm font-medium text-black dark:text-white">Price per item:</h3>
+          <p className="text-lg">
+            {new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'GBP',
+              maximumFractionDigits: 10,
+              currencyDisplay: 'symbol',
+            }).format(Number(inventory.price ?? 0))}
+          </p>
         </div>
         <div className="flex flex-col">
           <h3 className="text-title-sm font-medium text-black dark:text-white">Quantity:</h3>
@@ -19,7 +26,11 @@ export const InventoryDetailsLeftSection = ({ inventory }: { inventory: Inventor
         </div>
         <div className="flex flex-col">
           <h3 className="text-title-sm font-medium text-black dark:text-white">Status:</h3>
-          <p className={`text-lg inline-block font-medium text-success`}>in stock</p>
+          {inventory.quantity > 0 ? (
+            <p className={`text-lg inline-block font-medium text-success`}>in stock</p>
+          ) : (
+            <p className={`text-lg inline-block font-medium text-danger`}>out of stock</p>
+          )}
         </div>
       </div>
 
@@ -27,11 +38,11 @@ export const InventoryDetailsLeftSection = ({ inventory }: { inventory: Inventor
       <div className="grid grid-cols-2 gap-4 mt-4">
         <div className="flex flex-col">
           <h3 className="text-title-sm font-medium text-black dark:text-white">Added date:</h3>
-          <p className="text-lg">{inventory.created_at.toString()}</p>
+          <p className="text-lg">{new Date(inventory.created_at.toString()).toDateString()}</p>
         </div>
         <div className="flex flex-col">
           <h3 className="text-title-sm font-medium text-black dark:text-white">Updated date:</h3>
-          <p className="text-lg">{inventory.updated_at.toString()}</p>
+          <p className="text-lg">{new Date(inventory.updated_at.toString()).toDateString()}</p>
         </div>
       </div>
 

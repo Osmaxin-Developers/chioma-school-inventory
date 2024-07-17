@@ -1,4 +1,7 @@
-export const BillingAddressSection = () => {
+import type Usage from '#models/usage'
+
+export const BillingAddressSection = ({ usageData }: { usageData: Usage }) => {
+  //
   return (
     <div className="flex flex-wrap justify-between gap-5">
       <div>
@@ -16,14 +19,16 @@ export const BillingAddressSection = () => {
 
       <div className="max-w-150">
         <p className="mb-1.5 font-medium text-black dark:text-white">Billing To:</p>
-        <h4 className="mb-3 text-xl font-bold text-black dark:text-white">Devid wilium</h4>
+        <h4 className="mb-3 text-xl font-bold text-black dark:text-white capitalize">
+          {usageData.receiver_name}
+        </h4>
         <span className="mt-1.5 block">
           <span className="font-medium text-black dark:text-white">Location: </span>
-          New York, USA 2707 Davis Anenue
+          {usageData.receiver_location}
         </span>
         <span className="mt-1.5 block">
           <span className="font-medium text-black dark:text-white">Key Message: </span>
-          New York, USA 2707 Davis Anenue
+          {usageData.description}
         </span>
       </div>
     </div>

@@ -1,7 +1,12 @@
+import { useSelectedInventories } from '~/base/hooks/inventoryUsages/useSelectedInventories'
 import { LeftSection } from './left_section'
 import { RightSection } from './RightSection/right_section'
 
 export const RecordInventoryUsageIndex = () => {
+  //
+  const { handleSelectInventory, isSelectedInventory, selectedInventories, handleSearchInventory } =
+    useSelectedInventories()
+
   return (
     <div className="">
       {/* <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -12,8 +17,12 @@ export const RecordInventoryUsageIndex = () => {
 
       {/*  */}
       <div className="h-[calc(100vh-10rem)] grid grid-cols-1 gap-4 md:grid-cols-4 xl:grid-cols-7 md:gap-6 2xl:gap-7.5">
-        <LeftSection />
-        <RightSection />
+        <LeftSection
+          handleSelectInventory={handleSelectInventory}
+          isSelectedInventory={isSelectedInventory}
+          handleSearchInventory={handleSearchInventory}
+        />
+        <RightSection selectedInventories={selectedInventories} />
       </div>
     </div>
   )

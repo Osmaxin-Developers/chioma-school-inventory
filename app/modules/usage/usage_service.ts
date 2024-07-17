@@ -43,7 +43,7 @@ export class UsageService {
           description,
           receiver_location,
           receiver_name,
-          user_id: this.ctx.auth?.user?.id,
+          user_id: this.ctx.auth.getUserOrFail().id,
         },
         {
           client: trx,
@@ -73,13 +73,21 @@ export class UsageService {
   }
 
   public async findOne(id: number) {
-    const usage = await Usage.findOrFail(id)
+    let query = Usage.query()
+      .where('id', id)
+      .preload('usagesInventories', (query) => {
+        query.preload('inventory')
+      })
 
-    usage.load('usagesInventories', (query) => {
-      query.preload('inventory')
-    })
+    query = query.withCount('usagesInventories', (query) => query.as('inventories_count'))
+    query = query.withAggregate('usagesInventories', (query) =>
+      query.sum('quantity').as('inventories_quantity')
+    )
 
-    return usage
+    query = query.preload('usagesInventories', (builder) => builder.preload('inventory'))
+    query = query.preload('usagesRefunds', (builder) => builder.preload('inventory'))
+
+    return query.firstOrFail()
   }
 
   public async findAll(page: number, size: number, search?: string) {
@@ -91,12 +99,17 @@ export class UsageService {
       query = query.whereLike('receiver_name', '%' + search + '%')
     }
 
-    query = query.withCount('usagesInventories')
-
+    query = query.withCount('usagesInventories', (query) => query.as('inventories_count'))
     query = query.withAggregate('usagesInventories', (query) =>
-      query.sum('usage_price').as('totalPrice')
+      query.sum('quantity').as('inventories_quantity')
     )
 
-    return query.paginate(page, size)
+    query = query.preload('usagesInventories', (query) =>
+      query.select(db.raw('quantity * usage_price as total_price'))
+    )
+
+    const usages = await query.orderBy('created_at', 'desc').paginate(page, size)
+
+    return usages
   }
 }

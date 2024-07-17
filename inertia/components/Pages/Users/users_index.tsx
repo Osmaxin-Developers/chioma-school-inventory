@@ -1,14 +1,35 @@
-import { Link } from '@inertiajs/react'
+import { ModelPagination } from '#interfaces/model.interface'
+import type Role from '#models/role'
+import type User from '#models/user'
+import { Link, useForm, usePage } from '@inertiajs/react'
 import { PlusSquareIcon } from 'lucide-react'
-import { UsersTable } from './users_table'
-import { UserDetailsModal } from './UserModals/user_details_modal'
 import { useState } from 'react'
+import { toast } from 'sonner'
+import DeleteModal from '~/components/Global/Modal/delete_modal'
 import { ChangeUserRoleModal } from './UserModals/change_user_role_modal'
+import { UserDetailsModal } from './UserModals/user_details_modal'
+import { UsersTable } from './users_table'
 
 export const UsersIndex = () => {
   //
+  const { users, roles } = usePage<{ users: ModelPagination<User>; roles: Role[] }>().props
+  //
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false)
   const [isChangeUserRoleModalOpen, setIsChangeUserRoleModalOpen] = useState(false)
+  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false)
+  //
+  const [user, setUser] = useState<User>()
+  //
+  const { delete: deleteUser, processing } = useForm()
+
+  //
+  const handleDeleteUser = () =>
+    deleteUser(`/dashboard/users/${user?.id}`, {
+      onSuccess: () => {
+        setIsDeleteUserModalOpen(false)
+        toast.success('User deleted successfully', { style: { color: 'green' } })
+      },
+    })
 
   return (
     <>
@@ -33,6 +54,9 @@ export const UsersIndex = () => {
         <UsersTable
           setIsUserDetailsModalOpen={setIsUserDetailsModalOpen}
           setIsChangeUserRoleModalOpen={setIsChangeUserRoleModalOpen}
+          setUser={setUser}
+          setIsDeleteUserModalOpen={setIsDeleteUserModalOpen}
+          users={users}
         />
       </div>
 
@@ -41,6 +65,7 @@ export const UsersIndex = () => {
         <UserDetailsModal
           isModalOpen={isUserDetailsModalOpen}
           setIsModalOpen={setIsUserDetailsModalOpen}
+          user={user}
         />
       ) : null}
 
@@ -49,6 +74,20 @@ export const UsersIndex = () => {
         <ChangeUserRoleModal
           isModalOpen={isChangeUserRoleModalOpen}
           setIsModalOpen={setIsChangeUserRoleModalOpen}
+          user={user as User}
+          roles={roles}
+        />
+      ) : null}
+
+      {/*  */}
+      {isDeleteUserModalOpen ? (
+        <DeleteModal
+          isOpen={isDeleteUserModalOpen}
+          onClose={() => setIsDeleteUserModalOpen(false)}
+          title={'Delete User'}
+          message={`Are you sure you want to delete this user? This action can't be reversed.`}
+          isLoading={processing}
+          onConfirm={handleDeleteUser}
         />
       ) : null}
     </>

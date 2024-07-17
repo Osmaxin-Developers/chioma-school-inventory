@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
+import { InventoryService } from '../inventories/inventories_service.js'
 import { UsageService } from './usage_service.js'
 import { createUsageValidator } from './validators/createUsageValidator.js'
 
@@ -7,7 +8,8 @@ import { createUsageValidator } from './validators/createUsageValidator.js'
 export default class UsageController {
   public constructor(
     private readonly ctx: HttpContext,
-    private readonly usageService: UsageService
+    private readonly usageService: UsageService,
+    private readonly inventoryService: InventoryService
   ) {}
 
   public async create() {
@@ -21,7 +23,7 @@ export default class UsageController {
   public async findOne() {
     const id = await this.ctx.request.param('id')
 
-    const usage = await this.usageService.findOne(id)
+    const usage = (await this.usageService.findOne(id)).toJSON()
 
     return this.ctx.inertia.render('dashboard/inventory-usages/usage-preview/index', { usage })
   }
@@ -31,8 +33,17 @@ export default class UsageController {
     const size = this.ctx.request.qs().size
     const search = this.ctx.request.qs().search
 
-    const usages = await this.usageService.findAll(page, size, search)
+    const usages = (await this.usageService.findAll(page, size, search)).toJSON()
 
     return this.ctx.inertia.render('dashboard/inventory-usages/index', { usages })
+  }
+  public async renderRecordUsagePage() {
+    const page = this.ctx.request.qs().page
+    const size = this.ctx.request.qs().size
+    const search = this.ctx.request.qs().search
+
+    const inventories = (await this.inventoryService.findAll(page, size, search)).toJSON()
+
+    return this.ctx.inertia.render('dashboard/record-inventory-usage/index', { inventories })
   }
 }

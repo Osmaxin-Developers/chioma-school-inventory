@@ -31,8 +31,9 @@ export default class UsageRefundController {
   public async findAll() {
     const page = this.ctx.request.qs().page
     const size = this.ctx.request.qs().size
+    const usageId = this.ctx.request.qs().usageId
 
-    const usageRefunds = await this.usageRefundService.findAll(page, size)
+    const usageRefunds = await this.usageRefundService.findAll(page, size, usageId)
 
     return this.ctx.inertia.render('dashboard/inventory-usages/index', { usageRefunds })
   }

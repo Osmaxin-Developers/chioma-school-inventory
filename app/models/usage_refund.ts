@@ -10,6 +10,10 @@ export default class UsageRefund extends BaseModel {
   @column()
   declare usage_id: number
 
+
+  @column()
+  declare user_id: number
+
   @column()
   declare inventory_id: number
 

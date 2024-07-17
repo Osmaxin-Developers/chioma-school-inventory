@@ -11,7 +11,6 @@ const TableSearchAndFilterComponent = ({ onSearch, children }: TableSearchAndFil
       {/* The search input */}
       <Input
         name="search"
-        containerClassName="w-[100%] md:w-[30%] h-9"
         className=""
         onChange={(e) => {
           if (onSearch) {
