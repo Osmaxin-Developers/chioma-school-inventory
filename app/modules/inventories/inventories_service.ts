@@ -21,7 +21,7 @@ export class InventoryService {
       image_url: uploadedInventoryPhoto.secure_url,
       price: data.price,
       quantity: data.quantity,
-      user_id: this.ctx.auth?.user?.id,
+      user_id: this.ctx.auth.getUserOrFail().id,
     })
 
     return inventory
