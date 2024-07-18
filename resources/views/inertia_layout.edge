@@ -7,9 +7,17 @@
 
   <title inertia>AdonisJS x Inertia x React</title>
 
+  @if(app.nodeEnvironment === "development")
+
   @viteReactRefresh()
   @inertiaHead()
   @vite(['resources/css/app.css', 'inertia/app/app.tsx', `inertia/pages/${page.component}.tsx`])
+  @end
+
+  @if(app.nodeEnvironment === "production")
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+  @end
 </head>
 
 <body>

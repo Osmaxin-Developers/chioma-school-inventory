@@ -7,9 +7,17 @@
 
   <title inertia>AdonisJS x Inertia x React</title>
 
+  @if(app.nodeEnvironment === "development")
   @viteReactRefresh()
   @inertiaHead()
   @vite(['resources/css/app.css'])
+  @end
+
+  @if(app.nodeEnvironment === "production")
+  <link rel="stylesheet" href="/assets/app.css">
+  @end
+
 </head>
+
 
 <body>

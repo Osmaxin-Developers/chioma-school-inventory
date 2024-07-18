@@ -81,6 +81,10 @@ export class UsageRefundService {
 
     let query = UsageRefund.query()
 
+    if (usageId) {
+      query.where('usage_id', usageId)
+    }
+
     query.preload('inventory')
 
     return query.paginate(page, size)

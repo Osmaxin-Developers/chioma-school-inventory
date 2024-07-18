@@ -1,9 +1,9 @@
-import { Link } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
 import { useEffect, useRef, useState } from 'react'
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
-
+  const { post } = useForm({})
   const trigger = useRef<any>(null)
   const dropdown = useRef<any>(null)
 
@@ -38,7 +38,7 @@ const DropdownUser = () => {
         href="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">{'Godwin'}</span>
+          {/* <span className="block text-sm font-medium text-black dark:text-white">{'Godwin'}</span> */}
           <span className="block text-xs">Admin</span>
         </span>
 
@@ -152,8 +152,15 @@ const DropdownUser = () => {
           </li> */}
         {/* </ul> */}
         <button
-          onClick={() => {}}
+          type="button"
           className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={async () => {
+            post('/logout', {
+              onSuccess: () => {
+                window.location.reload()
+              },
+            })
+          }}
         >
           <svg
             className="fill-current"

@@ -1,4 +1,3 @@
-import { ModelObject } from '@adonisjs/lucid/types/model'
 import { DateTime } from 'luxon'
 
 export interface Pagination {

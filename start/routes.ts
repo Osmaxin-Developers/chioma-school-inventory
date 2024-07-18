@@ -10,11 +10,11 @@
 import router from '@adonisjs/core/services/router'
 import LoginController from '../app/modules/auth/login/login_controller.js'
 import { UserController } from '../app/modules/auth/users/users_controller.js'
+import DashboardController from '../app/modules/dashboard/dashboard_controller.js'
 import InventoryController from '../app/modules/inventories/inventories_controller.js'
 import UsageController from '../app/modules/usage/usage_controller.js'
 import UsageRefundController from '../app/modules/usage_refunds/usage_refunds_controller.js'
 import { middleware } from './kernel.js'
-import DashboardController from '../app/modules/dashboard/dashboard_controller.js'
 
 router
   .get('/', ({ view }) => {
@@ -78,7 +78,6 @@ router
 router.get('/dashboard/inventory-usages', [UsageController, 'findAll'])
 router.get('/dashboard/inventory-usages/:id', [UsageController, 'findOne']).use(middleware.auth())
 
-
 router.on('/admin').renderInertia('home', { version: 6 })
 router
   .get('/dashboard/users', [UserController, 'findAll'])
@@ -104,3 +103,9 @@ router
   .patch('/dashboard/users/change-role', [UserController, 'changeRole'])
   .use(middleware.auth())
   .use(middleware.userRole({ roles: ['super-admin'] }))
+router
+  .post('logout', async ({ auth, response }) => {
+    await auth.use('web').logout()
+    return response.redirect('/login')
+  })
+  .use(middleware.auth())
