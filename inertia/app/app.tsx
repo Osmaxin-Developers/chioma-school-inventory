@@ -9,7 +9,7 @@ import '../../resources/css/app.css'
 import '../../resources/css/data-tables-css.css'
 import '../../resources/css/satoshi.css'
 
-const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+const appName = import.meta.env.VITE_APP_NAME || 'University of Newbrunswick - Inventory'
 
 createInertiaApp({
   progress: { color: '#5468FF' },
